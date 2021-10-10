@@ -1,5 +1,6 @@
 package labs.lab1;
 
+import labs.homework.Map;
 import static java.lang.System.out;
 
 class Test {
@@ -60,9 +61,9 @@ class Test {
         {
             String[] colors  = new String[] { "Blue", "Red", "Black", "Green", "White", "Brown" };
 
-            DynamicArray list1 = new DynamicArray(colors, 10);
-            DynamicArray list2 = new DynamicArray(5);
-            DynamicArray list3 = new DynamicArray(list1);
+            ArrayList list1 = new ArrayList(colors, 10);
+            ArrayList list2 = new ArrayList(5);
+            ArrayList list3 = new ArrayList(list1);
 
             out.println(list1.toString());
             out.println(list2.toString());

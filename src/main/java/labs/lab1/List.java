@@ -1,14 +1,15 @@
 package labs.lab1;
 
-// Последовательность (список)
+/* ********************* Последовательность (список) ********************* */
+
 /* Реализуется на двусвязном списке LinkedList */
 
 public class List {
     private LinkedList data;
-    private int size;
-    private String cacheList;
+    private int        size;
+    private String     cacheList;
 
-    // Конструкторы
+    /* ******************** Конструкторы ********************* */
     public List() {
         this.data = new LinkedList();
         this.size = 0;
@@ -50,23 +51,32 @@ public class List {
         return index;
     }
 
-    // Декомпозиция
+    /* ********************* Декомпозиция ********************* */
     public boolean contains(Object obj) { return this.data.indexOf(obj) != -1; }
+
     public int     indexOf(Object obj)  { return this.data.indexOf(obj); }
+
     public boolean isEmpty()            { return this.size == 0; }
+
     public int     size()               { return this.size; }
+
     public Object  get(int index)       { index = checkIndexValue(index);  return this.data.get(index); }
 
-    // Методы
-    public void add(Object obj)            { this.data.append(obj); this.size++;  this.cacheList = null; }
-    public void add(Object obj, int index) {
+    /* *********************** Методы ************************* */
+    public void   add(Object obj)            {
+        this.data.append(obj);
+        this.size++;
+        this.cacheList = null;
+    }
+
+    public void   add(int index, Object obj) {
         index = checkIndexValue(index);
         this.data.insertAt(index, obj);
         this.size++;
         this.cacheList = null;
     }
 
-    public Object remove(int index) {
+    public Object remove(int index)          {
         index = checkIndexValue(index);
         this.cacheList = null;
         this.size--;

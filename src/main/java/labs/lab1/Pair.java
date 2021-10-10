@@ -1,10 +1,12 @@
 package labs.lab1;
 
+/* ********************* Пара ключ-значение ********************* */
+
 public class Pair {
     private Object key;
     private Object value;
 
-    // Конструктор
+    /* ******************** Конструкторы ******************** */
     public Pair(Object key, Object value) {
         if (key != null) {
             this.key   = key;
@@ -12,20 +14,20 @@ public class Pair {
         }
     }
 
-    public Pair(Pair pair)
-    {
+    public Pair(Pair pair) {
         if (pair != null) {
             this.key   = pair.key;
             this.value = pair.value;
         }
     }
 
-    // Декомпозиция
-    public Object getKey()    { return key; }
-    public Object getValue()  { return value; }
+    /* ******************** Декомпозиция ******************** */
+
+    public Object  getKey()   { return key; }
+    public Object  getValue() { return value; }
     public boolean hasValue() { return value != null; }
 
-    //  Методы
+    /* *********************** Методы *********************** */
     public void setValue(Object value) { this.value = value; };
 
     @Override

@@ -1,10 +1,11 @@
 package labs.lab1;
 
 
-// Хеш-таблица
+/* ************************* Хеш-таблица ************************* */
+
 /* Реализуется на динамическом массиве DynamicArray */
 
-class HashTable {
+public class HashTable {
 
     /** Запись в хеш-таблице
      * ключ
@@ -13,8 +14,8 @@ class HashTable {
      *         false - удален
      */
     private class Record {
-        private Object  key;
-        private Object  data;
+        private final Object  key;
+        private final Object  data;
         private boolean status;
 
         // Конструктор
@@ -34,9 +35,9 @@ class HashTable {
     }
 
     // Размер хеш-таблицы по умолчанию
-    private final int defaultBufferSize = 32;
+    private static final int defaultBufferSize = 32;
 
-    private DynamicArray data;
+    private ArrayList data;
     private int bufferSize;
     private int count;
     private int deleted;
@@ -48,18 +49,18 @@ class HashTable {
 
     // Функция вычисления хеш-кода
     /* Двойное хеширование */
-    private int getHashCode(Object key, int step) {
+    private int hashCode(Object key, int step) {
         int hash_1 = (int) key % this.bufferSize;
         int hash_2 = 1 + (int) key % (this.bufferSize - 1);
         return (hash_1 + step * hash_2) % this.bufferSize;
     }
 
-    // Конструкторы
+    /* ************************* Конструкторы ************************* */
     public HashTable() {
         this.count   = 0;
         this.deleted = 0;
-        this.bufferSize = this.defaultBufferSize;
-        this.data       = new DynamicArray(this.bufferSize);
+        this.bufferSize = defaultBufferSize;
+        this.data       = new ArrayList(this.bufferSize);
     }
 
     public HashTable(int bufferSize) {
@@ -71,13 +72,13 @@ class HashTable {
             }
 
         if (digit != 1)
-            this.bufferSize = this.defaultBufferSize;
+            this.bufferSize = defaultBufferSize;
         else
             this.bufferSize = bufferSize;
 
         this.count   = 0;
         this.deleted = 0;
-        this.data    = new DynamicArray(bufferSize);
+        this.data    = new ArrayList(bufferSize);
     }
 
     public HashTable(HashTable hashTable) {
@@ -93,19 +94,22 @@ class HashTable {
                     this.count      = hashTable.count;
                     this.deleted    = hashTable.deleted;
                     this.bufferSize = hashTable.bufferSize;
-                    this.data       = new DynamicArray(hashTable.data);
+                    this.data       = new ArrayList(hashTable.data);
                 }
             }
         }
     }
 
-    // Декомпозиция
+    /* ************************* Декомпозиция ************************* */
     public int getCount()    { return this.count; }
+
     public int getDeleted()  { return this.deleted; }
+
     public int getCapacity() { return this.bufferSize; }
+
     public Object get(Object key) {
-        int dataSize = this.data.getSize();
-        int index     = this.getHashCode(key, 0);
+        int dataSize  = this.data.getSize();
+        int index     = this.hashCode(key, 0);
 
         Record record = null;
         int i;
@@ -114,8 +118,8 @@ class HashTable {
         for (i = 1; i < dataSize && this.data.hasValue(index); i++) {
             record = (Record) this.data.get(index);
 
-            if (record.getKey() != key) {
-                index = this.getHashCode(key, i);
+            if (! record.getKey().equals(key)) {
+                index = this.hashCode(key, i);
             } else
                 break;
         }
@@ -130,7 +134,7 @@ class HashTable {
 
     public boolean find(Object key) {
         int dataSize  = this.data.getSize();
-        int index     = this.getHashCode(key, 0);
+        int index     = this.hashCode(key, 0);
 
         Record record = null;
         int i;
@@ -138,20 +142,19 @@ class HashTable {
         for (i = 1; i < dataSize && this.data.hasValue(index); i++) {
             record = (Record) this.data.get(index);
 
-            if (record.getKey() != key) {
-                index = this.getHashCode(key, i);
+            if (! record.getKey().equals(key)) {
+                index = this.hashCode(key, i);
             } else
                 break;
         }
 
         return i < dataSize && this.data.hasValue(index);
-
     }
 
-    // Методы
+    /* **************************** Методы *************************** */
     public boolean add(Object key, Object value) {
         int dataSize = this.data.getSize();
-        int index    = this.getHashCode(key, 0);
+        int index    = this.hashCode(key, 0);
 
         Record new_record = new Record(key, value);
         Record record;
@@ -168,8 +171,8 @@ class HashTable {
         for (i = 1; i < dataSize && this.data.hasValue(index); i++) {
             record = (Record) this.data.get(index);
 
-            if (record.getKey() != key) {
-                index = this.getHashCode(key, i);
+            if (! record.getKey().equals(key)) {
+                index = this.hashCode(key, i);
             } else
                 break;
         }
@@ -184,7 +187,7 @@ class HashTable {
 
     public boolean remove(Object key) {
         int dataSize  = this.data.getSize();
-        int index     = this.getHashCode(key, 0);
+        int index     = this.hashCode(key, 0);
 
         Record record = null;
         int i;
@@ -192,8 +195,8 @@ class HashTable {
         for (i = 1; i < dataSize && this.data.hasValue(index); i++) {
             record = (Record) this.data.get(index);
 
-            if (record.getKey() != key) {
-                index = this.getHashCode(key, i);
+            if (! record.getKey().equals(key)) {
+                index = this.hashCode(key, i);
             } else
                 break;
         }
